@@ -4,6 +4,7 @@ class CustomersController < ApplicationController
 
   # GET /customers
   def index
+    # this will represent the logged in user sub self.user_identity
     @customers = Customer.all
 
     render json: @customers

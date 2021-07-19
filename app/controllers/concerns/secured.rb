@@ -13,6 +13,10 @@ module Secured
     before_action :authenticate_request!
   end
 
+  def user_identity
+    @auth_payload["sub"]
+  end
+
   private
 
   def authenticate_request!
