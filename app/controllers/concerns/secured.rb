@@ -13,8 +13,8 @@ module Secured
     before_action :authenticate_request!
   end
 
-  def user_identity
-    @auth_payload["sub"]
+  def user_id
+    User.find(sub=@auth_payload["sub"]).id
   end
 
   private

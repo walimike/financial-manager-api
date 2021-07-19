@@ -1,5 +1,4 @@
 class CustomersController < ApplicationController
-  include Secured
   before_action :set_customer, only: [:show, :update, :destroy]
 
   # GET /customers

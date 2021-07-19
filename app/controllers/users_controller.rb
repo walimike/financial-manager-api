@@ -18,7 +18,13 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      render json: @user, status: :created, location: @user
+      @profile = Profile.new(profile_params)
+      @profile.user = @user
+      if @profile.save
+        render json: @profile, status: :created, location: @profile
+      else
+        render json: @profile.errors, status: :unprocessable_entity
+      end
     else
       render json: @user.errors, status: :unprocessable_entity
     end
@@ -46,6 +52,10 @@ class UsersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def user_params
-      params.require(:user).permit(:email, :user_type)
+      params.require(:user).permit(:email, :sub, :user_type)
+    end
+
+    def profile_params
+      params.permit(:email, :email_verified, :nickname, :picture)
     end
 end
